@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoC", "PoC\PoC.csproj", "{8FA7B297-C0E1-4727-99EE-0D1B950CBC5B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{08585822-4E69-4078-A5B5-819B02C2D00B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoC.Tests", "Tests\PoC.Tests\PoC.Tests.csproj", "{6D17D7D0-7D53-4CF3-9736-B39EC0372F86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,12 @@ Global
 		{8FA7B297-C0E1-4727-99EE-0D1B950CBC5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FA7B297-C0E1-4727-99EE-0D1B950CBC5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FA7B297-C0E1-4727-99EE-0D1B950CBC5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D17D7D0-7D53-4CF3-9736-B39EC0372F86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D17D7D0-7D53-4CF3-9736-B39EC0372F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D17D7D0-7D53-4CF3-9736-B39EC0372F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D17D7D0-7D53-4CF3-9736-B39EC0372F86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6D17D7D0-7D53-4CF3-9736-B39EC0372F86} = {08585822-4E69-4078-A5B5-819B02C2D00B}
 	EndGlobalSection
 EndGlobal
