@@ -24,9 +24,9 @@ jobs:
               dotnet tool install -g trx2junit
               trx2junit Tests/**/TestResults/*.trx
       - store_test_results:
-          path: tests/TestResults
+          path: Tests/TestResults
       - store_artifacts:
-          path: tests/TestResults
+          path: Tests/TestResults
           destination: TestResults
 
 workflows:
