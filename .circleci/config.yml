@@ -1,23 +1,21 @@
 version: 2.1
 
 jobs:
-  build-and-test:  
+  run-unit-tests:  
     description: Setup and run application tests
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:5.0
     steps:
       # Checkout the code.
       - checkout
-      # Firstly, compile the project
-      - run: dotnet build
       # Run all unit tests in the solution
       - run:
           name: Run all unit tests in the solution
           command: |
-            dotnet test --no-build --logger "trx"
+            dotnet test --logger "trx" 
       # Populate test results
       - run:
-          name: test results
+          name: Convert test results to junit xml format
           when: always
           command: |
               mkdir Tests/TestResults
@@ -29,6 +27,15 @@ jobs:
       - store_artifacts:
           path: Tests/TestResults
           destination: TestResults
+  build:
+    description: Build application with Release configuration
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:5.0
+    steps:
+      - checkout
+      - run:
+          name: "Build Application with Release configuration"
+          command: dotnet build --configuration Release
 
 workflows:
   # Below is the definition of your workflow.
@@ -37,4 +44,7 @@ workflows:
   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
   sample: 
     jobs:
-      - build-and-test
+      - run-unit-tests
+      - build:
+          requires:
+            - run-unit-tests
