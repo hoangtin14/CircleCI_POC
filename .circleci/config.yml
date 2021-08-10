@@ -25,9 +25,10 @@ jobs:
               export PATH="$PATH:/root/.dotnet/tools"
               dotnet tool install -g trx2junit
               trx2junit Tests/**/TestResults/*.trx --output Tests/TestResults
-      # store test result so can view in the Test tab
+      # Store test result so can view in the Test tab
       - store_test_results:
           path: Tests/TestResults
+      # Export test result as artifacts
       - store_artifacts:
           path: Tests/TestResults
           destination: TestResults
