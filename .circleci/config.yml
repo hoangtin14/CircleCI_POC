@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            dotnet --version
+            dotnet test
             
 
 workflows:
