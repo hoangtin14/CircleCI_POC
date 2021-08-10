@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  vulnachecka: whitesource/vulnerability-checker@19.5.5
+
 jobs:
   run-unit-tests:  
     description: Setup and run application tests
@@ -44,6 +47,7 @@ workflows:
   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
   sample: 
     jobs:
+      - vulnachecka/scan
       - run-unit-tests
       - build:
           requires:
