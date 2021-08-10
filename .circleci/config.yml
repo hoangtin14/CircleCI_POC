@@ -20,9 +20,10 @@ jobs:
           name: test results
           when: always
           command: |
+              mkdir Tests/TestResults
               export PATH="$PATH:/root/.dotnet/tools"
               dotnet tool install -g trx2junit
-              trx2junit Tests/**/TestResults/*.trx
+              trx2junit Tests/**/TestResults/*.trx --output Tests/TestResults
       - store_test_results:
           path: Tests/TestResults
       - store_artifacts:
