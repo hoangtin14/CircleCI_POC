@@ -61,8 +61,19 @@ jobs:
       - checkout
       # Run all unit tests in the solution
       - run:
-          name: Run all unit tests in the backend application
+          name: Run all unit tests in the front application
           command: echo "Build frontend deployment package - for POC only"
+  run-integration-tests:
+    description: Run integration tests
+    docker:
+      - image: cimg/node:14.10.1
+    steps:
+      # Checkout the code.
+      - checkout
+      # Run all unit tests in the solution
+      - run:
+          name: Run all integration tests
+          command: echo "Execute all integration tests - for POC only"
 workflows:
   # Below is the definition of your workflow.
   # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
@@ -73,11 +84,14 @@ workflows:
       - vulnerability-checker/scan
       - run-backend-unit-tests
       - run-frontend-unit-tests
+      - run-integration-tests
       - build-backend-deployment-package:
           requires:
             - run-backend-unit-tests
+            - run-integration-tests
       - build-frontend-deployment-package:
           requires:
             - run-frontend-unit-tests
+            - run-integration-tests
       
 
