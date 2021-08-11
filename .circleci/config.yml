@@ -4,8 +4,8 @@ orbs:
   vulnerability-checker: whitesource/vulnerability-checker@19.10.1
 
 jobs:
-  run-unit-tests:  
-    description: Setup and run application tests
+  run-backend-unit-tests:  
+    description: Setup and run backend unit tests
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:5.0
     steps:
@@ -13,7 +13,7 @@ jobs:
       - checkout
       # Run all unit tests in the solution
       - run:
-          name: Run all unit tests in the solution
+          name: Run all unit tests in the backend application
           command: |
             dotnet test --logger "trx" 
       # Populate test results
@@ -32,16 +32,33 @@ jobs:
       - store_artifacts:
           path: Tests/TestResults
           destination: TestResults
-  build:
-    description: Build application with Release configuration
+  build-backend-deployment-package:
+    description: Build backend deployment package
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:5.0
     steps:
       - checkout 
       - run:
-          name: "Build Application with Release configuration"
+          name: "Build Backend Application with Release configuration"
           command: dotnet build --configuration Release
-
+  run-frontend-unit-tests:
+    description: Setup and run frontend unit tests
+    steps:
+      # Checkout the code.
+      - checkout
+      # Run all unit tests in the solution
+      - run:
+          name: Run all unit tests in the backend application
+          command: echo "Run frontend unit test - for POC only"
+  build-frontend-deployment-package:
+    description: Build frontend deployment package
+    steps:
+      # Checkout the code.
+      - checkout
+      # Run all unit tests in the solution
+      - run:
+          name: Run all unit tests in the backend application
+          command: echo "Build frontend deployment package - for POC only"
 workflows:
   # Below is the definition of your workflow.
   # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
@@ -50,7 +67,13 @@ workflows:
   sample: 
     jobs:
       - vulnerability-checker/scan
-      - run-unit-tests
-      - build:
+      - run-backend-unit-tests
+      - run-frontend-unit-tests
+      - build-backend-deployment-package::
           requires:
-            - run-unit-tests
+            - run-backend-unit-tests
+      - build-frontend-deployment-package
+          requires:
+            - run-frontend-unit-tests
+      
+
