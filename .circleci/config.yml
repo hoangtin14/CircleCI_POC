@@ -81,7 +81,6 @@ jobs:
     steps:
       # Checkout the code.
       - checkout
-      # Run all unit tests in the solution
       - run:
           name: Deploy backend to staging
           command: echo "Deploy backend to staging - for POC only"
@@ -92,10 +91,29 @@ jobs:
     steps:
       # Checkout the code.
       - checkout
-      # Run all unit tests in the solution
       - run:
           name: Deploy frontend to staging
           command: echo "Deploy frontend to staging - for POC only"
+  deploy-backend-to-prd:
+    description: Deploy backend to prd
+    docker:
+      - image: cimg/node:14.10.1
+    steps:
+      # Checkout the code.
+      - checkout
+      - run:
+          name: Deploy backend to prd
+          command: echo "Deploy backend to prd - for POC only"
+  deploy-frontend-to-prd:
+    description: Deploy frontend to prd
+    docker:
+      - image: cimg/node:14.10.1
+    steps:
+      # Checkout the code.
+      - checkout
+      - run:
+          name: Deploy frontend to prd
+          command: echo "Deploy frontend to prd - for POC only"
 workflows:
   workflow: 
     jobs:
@@ -115,5 +133,11 @@ workflows:
           requires:
             - build-backend-deployment-package
       - deploy-frontend-to-staging:
+          requires:
+            - build-frontend-deployment-package
+      - deploy-backend-to-prd:
+          requires:
+            - build-backend-deployment-package
+      - deploy-frontend-to-prd:
           requires:
             - build-frontend-deployment-package
