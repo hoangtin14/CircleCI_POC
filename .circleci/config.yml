@@ -43,6 +43,8 @@ jobs:
           command: dotnet build --configuration Release
   run-frontend-unit-tests:
     description: Setup and run frontend unit tests
+    docker:
+      - image: cimg/node:14.10.1
     steps:
       # Checkout the code.
       - checkout
@@ -52,6 +54,8 @@ jobs:
           command: echo "Run frontend unit test - for POC only"
   build-frontend-deployment-package:
     description: Build frontend deployment package
+    docker:
+      - image: cimg/node:14.10.1
     steps:
       # Checkout the code.
       - checkout
