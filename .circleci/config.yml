@@ -69,10 +69,10 @@ workflows:
       - vulnerability-checker/scan
       - run-backend-unit-tests
       - run-frontend-unit-tests
-      - build-backend-deployment-package::
+      - build-backend-deployment-package:
           requires:
             - run-backend-unit-tests
-      - build-frontend-deployment-package
+      - build-frontend-deployment-package:
           requires:
             - run-frontend-unit-tests
       
