@@ -74,12 +74,30 @@ jobs:
       - run:
           name: Run all integration tests
           command: echo "Execute all integration tests - for POC only"
+  deploy-backend-to-staging:
+    description: Deploy backend to staging
+    docker:
+      - image: cimg/node:14.10.1
+    steps:
+      # Checkout the code.
+      - checkout
+      # Run all unit tests in the solution
+      - run:
+          name: Deploy backend to staging
+          command: echo "Deploy backend to staging - for POC only"
+  deploy-frontend-to-staging:
+    description: Deploy frontend to staging
+    docker:
+      - image: cimg/node:14.10.1
+    steps:
+      # Checkout the code.
+      - checkout
+      # Run all unit tests in the solution
+      - run:
+          name: Deploy frontend to staging
+          command: echo "Deploy frontend to staging - for POC only"
 workflows:
-  # Below is the definition of your workflow.
-  # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
-  # CircleCI will run this workflow on every commit.
-  # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
-  sample: 
+  workflow: 
     jobs:
       - vulnerability-checker/scan
       - run-backend-unit-tests
@@ -93,5 +111,9 @@ workflows:
           requires:
             - run-frontend-unit-tests
             - run-integration-tests
-      
-
+      - deploy-backend-to-staging:
+          requires:
+            - build-backend-deployment-package
+      - deploy-frontend-to-staging:
+          requires:
+            - build-frontend-deployment-package
